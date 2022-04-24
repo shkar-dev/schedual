@@ -9,6 +9,55 @@ $sql1 = " select *,day.day as dayName from addtable inner join day on day.id = a
 $result = mysqli_query($connect , $sql1);
 $sql2 = "select * from day";
 $result2 =mysqli_query($connect , $sql2);
+$rows = array();
+while($row = mysqli_fetch_assoc($result)){
+    $rows[] = $row;
+}
+//echo '<pre>';
+//print_r($rows);
+//echo '</pre>';
+$table = array();
+
+//$ii=0;
+//$y=0;
+//while($ii < 8){  //i=0
+//    while($y < 8){ //y=0
+//        echo $ii;
+
+//        $y++;
+//    }
+//    $ii++;
+//    echo $ii;
+//}
+//                $table[$i][] = $rows[$y];
+
+for ($i = 0 ; $i <  count($rows) ;$i++){
+    for ($y =0 ; $y <count($rows); $y++){
+        if ($rows[$y]['index'] == $i){
+            $index = 1;
+            if ($rows[$y]['start_time'] == '09:00'){
+                $table[$i][0] = $rows[$y];
+            }elseif($rows[$y]['start_time'] == '11:00'){
+                $table[$i][1] = $rows[$y];
+            }else{
+                $table[$i][2] = $rows[$y];
+            }
+        }
+    }
+}
+//$table[1][] = "hawkar choni";
+echo '<pre>';
+print_r($table[0] );
+echo '</pre>';
+//if (array_key_exists(2 , $table[5][1])){
+//    echo " haya";
+//}else{
+//    echo "nia";
+//}
+echo count($table);
+
+
+
 
 ?>
 <style>
@@ -57,55 +106,40 @@ $result2 =mysqli_query($connect , $sql2);
             </thead>
             <tbody>
 
-
-            <?php
-            $increment1 = 0;
-            $increment2 = 0;
-            $increment3 = 0;
-
-            while($increment1 < mysqli_num_rows($count)){
-
-                 while($row = mysqli_fetch_array($count)){
-
-
-                      $day = mysqli_fetch_array($result2);
-
-                     ?>
+                <?php
+                for ($i = 0 ; $i < count($table) ; $i++){?>
                 <tr>
                     <th scope="row">
                         <div class="cell_column">
-                            <h4> <?php echo $day[1]; ?></h4>
+                            <h4> <?php echo $table[0][$i]['dayName']; ?></h4>
                         </div>
                     </th>
-                    <?php
-                     while($data = mysqli_fetch_array($result)){
+                   <?php  for ($y=0;$y<=2;$y++){
+
+                        if (array_key_exists($y,$table[0][$i][$y])){ ?>
+                            <td colspan="2">
+                                <div class="cell">
+                                    <h4> haya</h4><p> </p>
+                                </div>
+                            </td>
+                       <?php }else{ ?>
+                            <td colspan="2">
+                                <div class="cell">
+                                    <h4> hich</h4><p> </p>
+                                </div>
+                            </td>
+                      <?php  }
+                    }
+                }
+                ?>
 
 
-                         ?>
-                         <td colspan="2">
-                             <div class="cell">
-                                 <h4> <?php echo $data['subject']; ?></h4><p><?php echo $data['teacher']; ?></p>
-                             </div>
-                         </td>
-                   <?php  $increment2++; }
-                     ?>
+
+
+
+
 
                 </tr>
-              <?php   }
-                 $increment1++;
-
-            }
-
-
-            ?>
-
-
-
-
-
-
-
-
 
 
 
