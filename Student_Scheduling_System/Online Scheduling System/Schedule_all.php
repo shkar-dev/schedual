@@ -2,60 +2,34 @@
 include 'db/database.php';
 include_once("header.php");
 include_once("navbar.php");
-
-$sql = " select count(*) as row from addtable inner join day on day.id = addtable.day group by addtable.day order by addtable.day asc , start_time";
-$count = mysqli_query($connect , $sql);
-$sql1 = " select *,day.day as dayName from addtable inner join day on day.id = addtable.day   order by addtable.day asc , start_time";
-$result = mysqli_query($connect , $sql1);
-$sql2 = "select * from day";
-$result2 =mysqli_query($connect , $sql2);
-$rows = array();
-while($row = mysqli_fetch_assoc($result)){
-    $rows[] = $row;
-}
-//echo '<pre>';
-//print_r($rows);
-//echo '</pre>';
 $table = array();
+if (isset($_POST['search'])){
+    $fac =$_POST['faculty'];
+    $stage =$_POST['stage'];
+    $sql1 = " select *,day.day as dayName from addtable  inner join day on day.id = addtable.day and faculty ='$fac' and course = '$stage'      order by addtable.day asc , start_time ";
+    $result = mysqli_query($connect , $sql1);
+    $sql2 = "select * from day";
+    $result2 =mysqli_query($connect , $sql2);
+    $rows = array();
+    while($row = mysqli_fetch_assoc($result)){
+        $rows[] = $row;
+    }
 
-//$ii=0;
-//$y=0;
-//while($ii < 8){  //i=0
-//    while($y < 8){ //y=0
-//        echo $ii;
-
-//        $y++;
-//    }
-//    $ii++;
-//    echo $ii;
-//}
-//                $table[$i][] = $rows[$y];
-
-for ($i = 0 ; $i <  count($rows) ;$i++){
-    for ($y =0 ; $y <count($rows); $y++){
-        if ($rows[$y]['index'] == $i){
-            $index = 1;
-            if ($rows[$y]['start_time'] == '09:00'){
-                $table[$i][0] = $rows[$y];
-            }elseif($rows[$y]['start_time'] == '11:00'){
-                $table[$i][1] = $rows[$y];
-            }else{
-                $table[$i][2] = $rows[$y];
+    for ($i = 0 ; $i <  count($rows) ;$i++){
+        for ($y =0 ; $y <count($rows); $y++){
+            if ($rows[$y]['index'] == $i){
+                $index = 1;
+                if ($rows[$y]['start_time'] == '09:00'){
+                    $table[$i][0] = $rows[$y];
+                }elseif($rows[$y]['start_time'] == '11:00'){
+                    $table[$i][1] = $rows[$y];
+                }else{
+                    $table[$i][2] = $rows[$y];
+                }
             }
         }
     }
 }
-//$table[1][] = "hawkar choni";
-echo '<pre>';
-print_r($table[0] );
-echo '</pre>';
-//if (array_key_exists(2 , $table[5][1])){
-//    echo " haya";
-//}else{
-//    echo "nia";
-//}
-echo count($table);
-
 
 
 
@@ -87,12 +61,41 @@ echo count($table);
     }
 </style>
 <div class="container_main">
-    <div class="table_title">
+    <div class="table_title  " style="padding: 20px;">
         <h2>technical college of informatics</h2>
-        <strong><label> information technology </label></strong>
+        <div class="row py-3">
+            <form  action="" method="post">
+
+               <div class="col-md-3"  >
+                   <select class="form-control" name="faculty"  style="width: 80px;margin-right: 20px">
+                       <option value="DB">DB</option>
+                       <option value="IT">IT</option>
+                   </select>
+               </div>
+
+                <div class="col-md-3">
+                    <select class="form-control" name="stage" style="width: 100%" >
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
+               <div class="col-md-6">
+                   <button class="btn btn-primary mx-2" name="search">Search</button>
+                   <button class="btn btn-primary mx-2" id="print" style="display: inline" onclick="printPage()" type="button">print</button>
+               </div>
+            </form>
+
+        </div>
+        <div class="row" style="text-align: center">
+            <?php
+                if (isset($_POST['faculty'])){
+            ?>
+            <h4 style="text-transform: capitalize">department <?php echo $_POST['faculty']; ?>  - stage <?php echo $_POST['stage']; ?></h4>
+        <?php }  ?>
+        </div>
     </div>
-    <div class="teble_content" style="width : 80%">
-        <table class="table table-bordered"  >
+    <div class="teble_content" style="width : 80%"  >
+        <table class="table table-bordered" >
             <thead style="background: #4cae4c">
             <tr style="text-align: center">
                 <th scope="col "  class="cell_column">Day / Time</th>
@@ -111,22 +114,28 @@ echo count($table);
                 <tr>
                     <th scope="row">
                         <div class="cell_column">
-                            <h4> <?php echo $table[0][$i]['dayName']; ?></h4>
+                           <?php
+                           for ($z =0 ;$z <=2 ;$z++ ){
+
+                               if (array_key_exists($z ,$table[$i])){?>
+                                    <h4> <?php echo $table[$i][$z]['dayName']; ?></h4>
+                               <?php break; }
+                           }
+                           ?>
                         </div>
                     </th>
                    <?php  for ($y=0;$y<=2;$y++){
 
-                        if (array_key_exists($y,$table[0][$i][$y])){ ?>
+                        if (array_key_exists($y,$table[$i])){ ?>
                             <td colspan="2">
                                 <div class="cell">
-                                    <h4> haya</h4><p> </p>
+                                    <h4><strong> <?php echo $table[$i][$y]['subject']; ?></strong></h4><p> <?php echo $table[$i][$y]['teacher']; ?>
+                                        <code style="text-transform: uppercase;"><?php echo $table[$i][$y]['room']; ?></code> </p>
                                 </div>
                             </td>
                        <?php }else{ ?>
                             <td colspan="2">
-                                <div class="cell">
-                                    <h4> hich</h4><p> </p>
-                                </div>
+
                             </td>
                       <?php  }
                     }
@@ -147,6 +156,13 @@ echo count($table);
         </table>
     </div>
 </div>
+<script>
+
+    function printPage(){
+      window.print()
+
+    }
+</script>
 
 <?php
 $path = $_SERVER['DOCUMENT_ROOT'];

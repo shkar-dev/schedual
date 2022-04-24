@@ -30,10 +30,11 @@ td {
 <body><br>
 <div class="container">
 
-    
-<body>
+
+<body  >
+
     <?php
-     echo "<tr>
+     echo "<tr style='text-align: center'>
             <td>";
               
          $host       = "localhost"; 

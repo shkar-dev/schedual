@@ -24,9 +24,7 @@
  {
 	 echo '<script type="text/javascript">
                       alert("New Year Added!");
-                         location="home.php";
+                         location="addcourse.php";
                            </script>';
  }
-
-
 ?>

@@ -45,13 +45,7 @@ body {
 				</div>
 
 				<!-- Text input-->
-				<div class="form-group">
-				  <label class="col-md-4 control-label" for="day">Day</label>  
-				  <div class="col-md-5">
-				  <input id="day" name="day" type="date" placeholder="" class="form-control input-md" required="">
-					
-				  </div>
-				</div>
+
 				
 				<!-- Button -->
 				<div class="form-group"  align="right">

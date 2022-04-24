@@ -12,7 +12,7 @@ $result2 = mysqli_query($connect, $query);
 $options = "";
 while($row2 = mysqli_fetch_array($result2))
 {
-    $options = $options."<option>$row2[1]</option>";
+    $options = $options."<option >$row2[1]</option>";
 }
 
 ?>
@@ -101,25 +101,15 @@ $connect = mysqli_connect($hostname, $username, $password, $databaseName);
 
 $query = "SELECT * FROM `rooms`";
 
-
-
 $result1 = mysqli_query($connect, $query);
-
-
 $query = "SELECT * FROM `subject`";
 $result2 = mysqli_query($connect, $query);
-
-
 $options = "";
-
 while($row2 = mysqli_fetch_array($result2))
 {
     $options = $options."<option>$row2[2]</option>";
 }
-
-?>
-
-
+//?>
 <html>
 <head>
 </head>
@@ -133,18 +123,18 @@ while($row2 = mysqli_fetch_array($result2))
     </head>
 
     <body>
-        
-		<!-- Method Two -->
+
+
         <div class="form-group">
-			<label class="col-md-4 control-label" for="subject">Subject</label> 
+			<label class="col-md-4 control-label" for="subject">Subject</label>
 			<div class="col-md-5">
 		<select  id="subject" name="subject"  class="form-control">
             <?php echo $options;?>
         </select>
 		</div>
 		</div>
-		
-        
+
+
 
             <?php while($row2 = mysqli_fetch_array($result2)):;?>
 
@@ -152,7 +142,7 @@ while($row2 = mysqli_fetch_array($result2))
 
             <?php endwhile;?>
 
-        </select> 
+        </select>
 		<?php
 
 
@@ -500,9 +490,24 @@ while($row2 = mysqli_fetch_array($result2))
             <?php endwhile;?>
 
         </select>
+
+
         
-		</div>		
+		</div>
+
     </div>
+<!--        <div class="form-group">-->
+<!--            <label class="col-md-4 control-label" for="teacher">Subject</label>-->
+<!--            <div class="col-md-5">-->
+<!--                <select class="form-control" disabled>-->
+<!--                    <option  selected >None</option>-->
+<!--                    <option    >Php</option>-->
+<!--                    <option    >Css</option>-->
+<!--                    <option    >Jquery</option>-->
+<!--                    <option    >Java</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </div>-->
     </body>
 </head>
 

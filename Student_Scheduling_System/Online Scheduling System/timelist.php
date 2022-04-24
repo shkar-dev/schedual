@@ -49,7 +49,7 @@ td {
                             <tr>
                              <th>Start time</th>
 								             <th>End time</th>
-								             <th>Day</th>
+								            
 
                                 <th>Action</th>
                             </tr>";
@@ -58,7 +58,7 @@ td {
                         echo "<tr>";
                         echo "<td>" . $row['start_time'] . "</td>";
 						            echo "<td>" . $row['end_time'] . "</td>";
-						            echo "<td>" . $row['day'] . "</td>";
+
 
                         echo "<td><form class='form-horizontal' method='post' action='timelist.php'>
                         <input name='id' type='hidden' value='".$row['id']."';>
