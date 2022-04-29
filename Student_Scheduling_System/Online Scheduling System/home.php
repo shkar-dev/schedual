@@ -62,24 +62,17 @@ body {
         </select>
 		</div>
 		</div>
-		
         <!--Method One-->
         <div class="form-group">
-			<label class="col-md-4 control-label" for="Course">semester</label> 
+			<label class="col-md-4 control-label" for="Course">Stage</label>
 			<div class="col-md-5">
-		<select  id="course" name="course"  class="form-control">
-
-            <?php while($row1 = mysqli_fetch_array($result1)):;?>
-
-            <option  value="<?php echo $row1[2];?>"><?php echo $row1[2];?></option>
-
-            <?php endwhile;?>
-
+        <select name="course" id="course" class="form-control" required >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
         </select>
-        
-        
-
-		</div>		
+		</div>
     </div>
     </body>
 

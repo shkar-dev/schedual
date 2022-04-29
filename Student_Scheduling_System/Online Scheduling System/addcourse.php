@@ -39,9 +39,15 @@ body {
 			
 			<!-- Text input-->
 				<div class="form-group">
-				  <label class="col-md-4 control-label" for="corname">semster</label>  
+				  <label class="col-md-4 control-label" for="corname">Stage</label>
 				  <div class="col-md-5">
-				  <input id="corname" name="corname" type="text" placeholder="" class="form-control input-md" required="">
+<!--				  <input id="corname" name="corname" type="text" placeholder="" class="form-control input-md" required="">-->
+                      <select name="corname" id="corname" class="form-control" required >
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                      </select>
 				  </div>
 				</div>
 				

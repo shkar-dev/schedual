@@ -30,9 +30,8 @@ if (isset($_POST['search'])){
         }
     }
 }
-
-
-
+$sql = "SELECT * FROM  faculty ";
+$result1 = mysqli_query($connect,$sql);
 ?>
 <style>
     .container_main{
@@ -42,10 +41,8 @@ if (isset($_POST['search'])){
         flex-direction: column;
     }
     .table_title{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
+        text-align: center;
+        width: 100%;
     }
     .cell{
         display: flex;
@@ -56,36 +53,42 @@ if (isset($_POST['search'])){
         width: 100%;
     }
     .cell_column{
-
         text-align: center;
+    }
+    .formStyle{
+        text-align: center;
+        padding: 20px 100px;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
     }
 </style>
 <div class="container_main">
-    <div class="table_title  " style="padding: 20px;">
-        <h2>technical college of informatics</h2>
-        <div class="row py-3">
-            <form  action="" method="post">
-
-               <div class="col-md-3"  >
-                   <select class="form-control" name="faculty"  style="width: 80px;margin-right: 20px">
-                       <option value="DB">DB</option>
-                       <option value="IT">IT</option>
+    <div class="table_title"  >
+        <h2>College of Science </h2>
+        <form  action="" method="post">
+        <div class="row py-3 formStyle">
+               <div class="col-md-2"  >
+                   <select class="form-control" name="faculty"   >
+                       <?php while($row = mysqli_fetch_array($result1)){ ?>
+                           <option value="<?php echo $row['faculty_name']; ?>"><?php echo $row['faculty_name']; ?></option>
+                       <?php }?>
                    </select>
                </div>
-
-                <div class="col-md-3">
-                    <select class="form-control" name="stage" style="width: 100%" >
+                <div class="col-md-2">
+                    <select class="form-control" name="stage">
                         <option value="1">1</option>
                         <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
                     </select>
                 </div>
                <div class="col-md-6">
-                   <button class="btn btn-primary mx-2" name="search">Search</button>
-                   <button class="btn btn-primary mx-2" id="print" style="display: inline" onclick="printPage()" type="button">print</button>
+                   <button class="btn btn-primary mx-2" name="search"  style="width: 200px">Search</button>
+                   <button class="btn btn-primary mx-2" id="print"  style="width: 200px"    type="button">print</button>
                </div>
-            </form>
-
         </div>
+        </form>
         <div class="row" style="text-align: center">
             <?php
                 if (isset($_POST['faculty'])){
@@ -94,7 +97,7 @@ if (isset($_POST['search'])){
         <?php }  ?>
         </div>
     </div>
-    <div class="teble_content" style="width : 80%"  >
+    <div class="teble_content" style="width : 80%"   id="printTable">
         <table class="table table-bordered" >
             <thead style="background: #4cae4c">
             <tr style="text-align: center">
@@ -116,7 +119,6 @@ if (isset($_POST['search'])){
                         <div class="cell_column">
                            <?php
                            for ($z =0 ;$z <=2 ;$z++ ){
-
                                if (array_key_exists($z ,$table[$i])){?>
                                     <h4> <?php echo $table[$i][$z]['dayName']; ?></h4>
                                <?php break; }
@@ -141,27 +143,20 @@ if (isset($_POST['search'])){
                     }
                 }
                 ?>
-
-
-
-
-
-
-
                 </tr>
-
-
-
             </tbody>
         </table>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.2/jQuery.print.min.js" integrity="sha512-t3XNbzH2GEXeT9juLjifw/5ejswnjWWMMDxsdCg4+MmvrM+MwqGhxlWeFJ53xN/SBHPDnW0gXYvBx/afZZfGMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
+    $(function() {
+        $("#print").click(function() {
+            $("#printTable").print();
+        });
+    });
 
-    function printPage(){
-      window.print()
-
-    }
 </script>
 
 <?php

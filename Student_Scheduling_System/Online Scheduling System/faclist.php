@@ -22,28 +22,20 @@ td {
   padding-bottom: 5px;  
   height: 20px;
 }
-
-
 </body>
 </style>
 </head>
 <body><br>
 <div class="container">
-
-
 <body  >
-
     <?php
      echo "<tr style='text-align: center'>
             <td>";
-              
-         $host       = "localhost"; 
+               $host       = "localhost";
                $username   = "root"; 
                $password   = "";
                $database   = "insertion"; 
-         
-     
-        $connect= mysqli_connect($host,$username,$password, $database) or die(mysql_error()); 
+        $connect= mysqli_connect($host,$username,$password, $database) or die(mysql_error());
 
                     $query = ("SELECT * FROM faculty");
                     $result = mysqli_query($connect, $query) or die(mysql_error());
@@ -60,6 +52,7 @@ td {
                         echo "<td>" . $row['designation'] . "</td>";
                         echo "<td><form class='form-horizontal' method='post' action='faclist.php'>
                         <input name='faculty_id' type='hidden' value='".$row['faculty_id']."';>
+                        <input type='hidden' name='faculty_name' value='".$row['faculty_name']."'>
                         <input type='submit' class='btn btn-danger' name='delete' value='Delete'>
                         </form></td>";
                         echo "</tr>";
@@ -80,7 +73,10 @@ td {
     if(isset($_POST['faculty_id']))
     {
     $faculty_id = $_POST['faculty_id'];
+    $faculty_name = $_POST['faculty_name'];
+
     $sql = mysqli_query($connect, "DELETE FROM faculty WHERE faculty_id='$faculty_id'");
+    $sql1=mysqli_query($connect,"delete from addtable where faculty = '$faculty_name'");
     if(!$sql)
     {
         echo ("Could not delete rows" .mysqli_error());

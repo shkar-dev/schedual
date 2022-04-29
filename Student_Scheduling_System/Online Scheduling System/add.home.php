@@ -32,23 +32,23 @@ if(isset($_POST['insert'])){
 
     $room = $_POST['room'];
     $course = $_POST['course'];
-    $query1 = "Select * from addtable where room =  '$room' and faculty = '$faculty' and course = '$course'";
+    $query1 = "Select * from addtable where    faculty = '$faculty' and course = '$course'";
     $query1_result = mysqli_query($connect, $query1) or die("failed");
     if(mysqli_num_rows($query1_result) >0){
 
         $start = $_POST['start_time'];
         $end = $_POST['end_time'];
-        $query = "Select * from addtable where start_time  = '$start' and end_time  = '$end' and room = '$room'and faculty = '$faculty' and course = '$course' ";
+        $query = "Select * from addtable where start_time  = '$start' and end_time  = '$end'    and faculty = '$faculty' and course = '$course' ";
 
 
         $result= mysqli_query($connect , $query);
         if(mysqli_num_rows($result) > 0){
             $day = $_POST['day'];
-            $query = "Select * from addtable where day  = '$day' and start_time  = '$start' and end_time  = '$end' and room = '$room' and faculty = '$faculty' and course = '$course' ";
+            $query = "Select * from addtable where day  = '$day' and start_time  = '$start' and end_time  = '$end'   and faculty = '$faculty' and course = '$course' ";
             $result= mysqli_query($connect , $query);
             if(mysqli_num_rows($result) > 0 ){
                 echo "<script type='text/javascript'>
-                        alert('girawa !');
+                        alert('Lam katada dari trman haya  !');
                            window.location='home.php';
                              </script>";
             }else{

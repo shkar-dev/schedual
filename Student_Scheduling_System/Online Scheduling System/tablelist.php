@@ -23,7 +23,7 @@
       
 			   $connect=mysqli_connect($host,$username,$password,$database) or die(mysql_error()); 
              
-                    $query = ("SELECT *,day.day as dayName FROM addtable inner join day on day.id = addtable.day");
+                    $query = ("SELECT *,day.day as dayName , addtable.id as id FROM addtable inner join day on day.id = addtable.day");
                     $result = mysqli_query($connect, $query) or die(mysql_error());
                     echo "<div class='container'><table width='' class='table table-bordered' border='1' >
                             <tr>
